@@ -1,0 +1,66 @@
+@colorPrimario: #337AB7;
+@colorTablero: ;
+@colorBorder: darken(@colorPrimario, 10%);;
+@colorCelda: darken(@colorPrimario, -50%);
+@colorPc: darken(@colorPrimario, -40%);
+@colorUser: @colorPrimario;
+@colorGano: darken(@colorPrimario, -30%);
+@ancho: 60vh;
+
+body{
+	text-align: center;
+
+	#tablero{
+		background-color: @colorTablero;
+		margin: auto;
+		vertical-align: middle;
+		height: @ancho; 
+		width: @ancho;
+		
+		.celda:hover{
+           background-color: @colorCelda;
+		}
+
+		.celda{
+			text-transform: uppercase;
+			cursor: pointer;
+		    font-size: @ancho/4;
+		    vertical-align: middle;
+			display: inline-block;
+		    width: @ancho/3.1;
+		    height: @ancho/3.1;
+            
+            
+		}
+        
+        .fila:nth-child(1), .fila:nth-child(2){
+            border-bottom: solid 10px  @colorBorder;
+        }
+        .celda:nth-child(1), .celda:nth-child(2){
+            border-right: solid 10px  @colorBorder;
+        }
+    
+		.user{
+			color: @colorUser;
+		}
+
+		.pc{
+			color: @colorPc;
+		}
+        
+        .gano{
+            background-color: @colorGano;                    
+        }
+
+	}
+
+	#consola {
+		width:@ancho;
+		height:4rem; 
+		padding:0.1rem;
+		border: 0.1rem solid @colorCelda;
+		margin: 1rem auto;
+		text-align: center;
+		font-size: 2rem;
+	}
+ }

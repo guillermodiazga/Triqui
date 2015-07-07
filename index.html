@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<link rel="icon" type="image/png"  href="images/favicon.png">
+	<title>Triqui</title>
+</head>
+<body class="container">
+	<div id="controles">
+		<fieldset>
+			<legend>Triqui</legend>
+			<label for="facil">F&aacutecil</label>
+			<input type="radio" id="facil" name="modo" checked>
+			<label for="invencible">Invencible</label>
+			<input type="radio" id="invencible"  name="modo">
+			<button id="reiniciar" class="btn btn-default">Reiniciar</button>
+		</fieldset>
+	</div>
+	<div id="consola" class="text-primary"></div>
+
+	<div id="tablero" >
+		<div class="fila">
+			<span id="0" class="celda"></span>
+			<span id="1" class="celda"></span>
+			<span id="2" class="celda"></span>
+		</div><div class="fila">
+			<span id="3" class="celda"></span>
+			<span id="4" class="celda"></span>
+			<span id="5" class="celda"></span>
+		</div><div class="fila">
+			<span id="6" class="celda"></span>
+			<span id="7" class="celda"></span>
+			<span id="8" class="celda"></span>
+		</div>
+	</div>
+
+</body>
+<script src="js/vendor/jquery-2.1.4.min.js"></script>
+<script src="js/MiniMax.js"></script>
+<script src="js/Triqui.js"></script>
+<script src="js/interfaz.js"></script>
+</html>

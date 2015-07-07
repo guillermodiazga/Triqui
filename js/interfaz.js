@@ -7,7 +7,7 @@ var interfazTriqui = new function (){
 	var tablero;
 	var user;
 	var pc;
-	addEventosCelda();
+	addEventos();
 	nuevoJuego();
 
 	function nuevoJuego (){
@@ -17,7 +17,7 @@ var interfazTriqui = new function (){
 		pc = new Triqui.computador("o");
 		MiniMax.JUGADOR = {HUMANO: user.name,CPU: pc.name};
 		triqui.jugadorActual = user.name;
-		triqui.modo = ($("#facil:checked").size())? "facil" : "invencible";
+		triqui.modo = $('input[name="modo"]:checked').attr("id");
 		console.log("Nuevo juego en modo: "+triqui.modo);
 	};
 
@@ -35,8 +35,28 @@ var interfazTriqui = new function (){
 		triqui.jugadorActual = pc.name;
 	};
 
+	function juegoEnModoMedio () {
+		var modo;
+		if(triqui.modoAntes != "facil"){
+			modo = "facil";
+			triqui.modoAntes = "facil";
+			console.info("PC Jugara Facil");
+		}else{
+			modo = "invencible";
+			triqui.modoAntes = "invencible"
+			console.info("PC Jugara Invencible");
+		}
+
+		return modo;
+	};
+
 	function juegaPc(){
-		var pocision = pc.procesarMovida(tablero.campos, triqui.modo)
+		var modo = triqui.modo;
+
+		if(triqui.modo == "medio")
+				modo = juegoEnModoMedio();
+
+		var pocision = pc.procesarMovida(tablero.campos, modo)
 		tablero.campos = pc.marcar(tablero.campos, pocision, pc.name);
 		pintarJugada(pocision, pc.name, "pc");
 		triqui.jugadorActual = user.name;
@@ -44,9 +64,14 @@ var interfazTriqui = new function (){
 		var rutaGanadora = tablero.validarGanador(tablero.campos, pc.name);
 		if(rutaGanadora){
 			animacionGano(rutaGanadora);
-			console.log("Gano Pc");
+			console.log("Gano: "+pc.name);
 			triqui.estadoJuego = "Terminado";
 		}
+	};
+
+	function addEventos(){
+			addEventosCelda ();
+			addEventosBotones ();
 	};
 
 	function addEventosCelda (){
@@ -61,7 +86,7 @@ var interfazTriqui = new function (){
 				}else{//fin Juego
 					var rutaGanadora = tablero.validarGanador(tablero.campos, user.name);
 					if(rutaGanadora){
-						console.log("Gano User");
+						console.log("Gano: "+user.name);
 						animacionGano(rutaGanadora);
 					}else{
 						console.log("Empate");
@@ -83,10 +108,12 @@ var interfazTriqui = new function (){
 		$("#jugadas").text("");
 	};
 
-	$("input, button").click(function(){
-		nuevoJuego();
-		limpiarTablero();
-	});
+	function addEventosBotones () {
+		$("input, button").click(function(){
+			nuevoJuego();
+			limpiarTablero();
+		});
+	}
 
 	function animacionGano(rutaGanadora){
 		for(var i in rutaGanadora){

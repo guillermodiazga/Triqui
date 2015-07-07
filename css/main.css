@@ -38,6 +38,10 @@ body #tablero .pc {
 body #tablero .gano {
   background-color: #9fc4e4;
 }
+body #controles label,
+body #controles input {
+  cursor: pointer;
+}
 body #consola {
   width: 60vh;
   height: 4rem;

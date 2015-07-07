@@ -63,7 +63,7 @@ var interfazTriqui = new function (){
 
 		var rutaGanadora = tablero.validarGanador(tablero.campos, pc.name);
 		if(rutaGanadora){
-			animacionGano(rutaGanadora);
+			resaltarRutaGano(rutaGanadora);
 			console.log("Gano: "+pc.name);
 			triqui.estadoJuego = "Terminado";
 		}
@@ -87,7 +87,7 @@ var interfazTriqui = new function (){
 					var rutaGanadora = tablero.validarGanador(tablero.campos, user.name);
 					if(rutaGanadora){
 						console.log("Gano: "+user.name);
-						animacionGano(rutaGanadora);
+						resaltarRutaGano(rutaGanadora);
 					}else{
 						console.log("Empate");
 					}
@@ -112,15 +112,42 @@ var interfazTriqui = new function (){
 		$("input, button").click(function(){
 			nuevoJuego();
 			limpiarTablero();
+			animationClearCeldas();
 		});
 	}
 
-	function animacionGano(rutaGanadora){
+	function resaltarRutaGano(rutaGanadora){
 		for(var i in rutaGanadora){
-			$("#"+rutaGanadora[i]).delay(5000).addClass("gano");
+			$("#"+rutaGanadora[i]).addClass("gano");
 		}
+
+		
 	};
 
-	console.log = function(a){$("#consola").text(a)}
+	console.log = function(a){
+		$("#consola").text(a);
+		setTimeout(function(){
+				$('#consola').addClass('puffOut');
+		},10);
+		setTimeout(function(){
+				$('#consola').removeClass('puffOut');
+		},500);
+	};
+		
+	function animationClearCeldas(){
+		$(".celda").parent().fadeTo(300, 0.5);
+		$(".celda").each(function(id){
+			var celda = $(this);
+			setTimeout(function(){
+				celda.toggleClass("gano");
+			},50*id);
+			celda.toggleClass("gano");
+		});	
+
+		$(".celda").parent().fadeTo(500,1);
+		
+	};		
 	
+	$('#tablero').addClass('magictime spaceInRight');
+		
 }();

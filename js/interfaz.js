@@ -9,6 +9,7 @@ var interfazTriqui = new function (){
 	var pc;
 	addEventos();
 	nuevoJuego();
+	$('#tablero').addClass('magictime spaceInRight');
 
 	function nuevoJuego (){
 		triqui = new Triqui.juego();
@@ -18,7 +19,7 @@ var interfazTriqui = new function (){
 		MiniMax.JUGADOR = {HUMANO: user.name,CPU: pc.name};
 		triqui.jugadorActual = user.name;
 		triqui.modo = $('input[name="modo"]:checked').attr("id");
-		console.log("Nuevo juego en modo: "+triqui.modo);
+		showMensaje("Nuevo juego en modo: "+triqui.modo);
 	};
 
 	function pintarJugada (id, name, clase) {
@@ -64,8 +65,10 @@ var interfazTriqui = new function (){
 		var rutaGanadora = tablero.validarGanador(tablero.campos, pc.name);
 		if(rutaGanadora){
 			resaltarRutaGano(rutaGanadora);
-			console.log("Gano: "+pc.name);
+			showMensaje("Gano: "+pc.name);
 			triqui.estadoJuego = "Terminado";
+		}else{
+			showMensaje("Jugando...");
 		}
 	};
 
@@ -86,10 +89,10 @@ var interfazTriqui = new function (){
 				}else{//fin Juego
 					var rutaGanadora = tablero.validarGanador(tablero.campos, user.name);
 					if(rutaGanadora){
-						console.log("Gano: "+user.name);
+						showMensaje("Gano: "+user.name);
 						resaltarRutaGano(rutaGanadora);
 					}else{
-						console.log("Empate");
+						showMensaje("Empate");
 					}
 					triqui.estadoJuego = "Terminado";
 				}
@@ -120,17 +123,16 @@ var interfazTriqui = new function (){
 		for(var i in rutaGanadora){
 			$("#"+rutaGanadora[i]).addClass("gano");
 		}
-
-		
 	};
 
-	console.log = function(a){
-		$("#consola").text(a);
+	function showMensaje (text) {
+		var consola = $("#consola")
+		consola.text(text);
 		setTimeout(function(){
-				$('#consola').addClass('puffOut');
+			consola.addClass('puffOut');
 		},10);
 		setTimeout(function(){
-				$('#consola').removeClass('puffOut');
+			consola.removeClass('puffOut');
 		},500);
 	};
 		
@@ -148,6 +150,5 @@ var interfazTriqui = new function (){
 		
 	};		
 	
-	$('#tablero').addClass('magictime spaceInRight');
-		
+	
 }();

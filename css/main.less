@@ -1,5 +1,5 @@
 @colorPrimario: #337AB7;
-@colorTablero: ;
+@colorTablero: #ffffff;
 @colorBorder: darken(@colorPrimario, 10%);;
 @colorCelda: darken(@colorPrimario, -50%);
 @colorPc: darken(@colorPrimario, -40%);
@@ -61,7 +61,7 @@ body{
     }
 
 	#consola {
-		width:@ancho;
+		width:100%;
 		height:4rem; 
 		padding:0.1rem;
 		border: 0.1rem solid @colorCelda;
@@ -70,3 +70,7 @@ body{
 		font-size: 2rem;
 	}
  }
+
+@media all and (max-width: 800px), only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 1024px), only screen and (min-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (min-resolution: 192dpi) and (max-width: 1024px), only screen and (min-resolution: 2dppx) and (max-width: 1024px) {
+
+}

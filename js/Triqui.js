@@ -15,11 +15,8 @@ Triqui.jugador = function (name) {
 	this.marcar = function(campos, posicion, name) {
 
 		if(campos[posicion] != 0){
-			console.log("Ya esta marcado");
 			return campos;
 		}
-
-		console.log("Se marco "+posicion);
 		campos[posicion] = name;
 		return campos;
 	};
@@ -32,12 +29,10 @@ Triqui.computador = function (name) {
 	 this.procesarMovida = function(campos, modo) {
 
 	 	var posicion = (modo == "facil")? Math.ceil(Math.random()*8) : MiniMax.getPos(campos);
-		console.log("Pc Marcara "+posicion);
 
 		if(campos[posicion]==0)
 			return posicion;
 		else {
-			console.log("Pc: ya esta marcado");
 			return this.procesarMovida(campos);
 		}
 	};
@@ -72,7 +67,6 @@ Triqui.tablero = function () {
 	    if (hayGanador)
 	        return hayGanador;
 	    else{
-	    	console.log("Jugando...");
 	        return false;
 	    }
 	}

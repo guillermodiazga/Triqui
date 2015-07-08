@@ -1,2 +1,2 @@
-# triqui
-Juego de triqui o tres en raya en js POO
+# Triqui
+Juego de triqui o tres en raya, elaborado en POO con js.

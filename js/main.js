@@ -1,14 +1,24 @@
 //interfaz
 "use strict";
-var interfazTriqui = new function (){
+var interfazTriqui = new function ($){
 
 //init
 	var triqui;
 	var tablero;
 	var user;
 	var pc;
+
+	var sonidos = {
+					on : true,
+					empate : "Punchline Drum",
+					perdio : "Concussive Hit Guitar Boing",
+					gano : "Battle Crowd Celebrate Stutter",
+					nuevo : "Swoosh",
+					jugando : "Pen Clicking"
+				};
 	addEventos();
 	nuevoJuego();
+
 	$('#tablero').addClass('magictime spaceInRight');
 
 	function nuevoJuego (){
@@ -16,10 +26,10 @@ var interfazTriqui = new function (){
 		tablero = new Triqui.tablero();
 		user = new Triqui.jugador("x");
 		pc = new Triqui.computador("o");
-		MiniMax.JUGADOR = {HUMANO: user.name,CPU: pc.name};
+		MiniMax.JUGADOR = {HUMANO: user.name, CPU: pc.name};
 		triqui.jugadorActual = user.name;
 		triqui.modo = $('input[name="modo"]:checked').attr("id");
-		showMensaje("Nuevo juego en modo: "+triqui.modo);
+		showMensaje("Nuevo juego en modo: "+triqui.modo, sonidos.nuevo);
 	};
 
 	function pintarJugada (id, name, clase) {
@@ -65,10 +75,10 @@ var interfazTriqui = new function (){
 		var rutaGanadora = tablero.validarGanador(tablero.campos, pc.name);
 		if(rutaGanadora){
 			resaltarRutaGano(rutaGanadora);
-			showMensaje("Gano: "+pc.name);
+			showMensaje("Gano: "+pc.name, sonidos.perdio);
 			triqui.estadoJuego = "Terminado";
 		}else{
-			showMensaje("Jugando...");
+			showMensaje("Jugando...", sonidos.jugando);
 		}
 	};
 
@@ -89,10 +99,10 @@ var interfazTriqui = new function (){
 				}else{//fin Juego
 					var rutaGanadora = tablero.validarGanador(tablero.campos, user.name);
 					if(rutaGanadora){
-						showMensaje("Gano: "+user.name);
+						showMensaje("Gano: "+user.name, sonidos.gano);
 						resaltarRutaGano(rutaGanadora);
 					}else{
-						showMensaje("Empate");
+						showMensaje("Empate", sonidos.empate);
 					}
 					triqui.estadoJuego = "Terminado";
 				}
@@ -112,10 +122,14 @@ var interfazTriqui = new function (){
 	};
 
 	function addEventosBotones () {
-		$("input, button").click(function(){
+		$("input[name='modo'], button").click(function(){
 			nuevoJuego();
 			limpiarTablero();
 			animationClearCeldas();
+		});
+
+		$("#sonido").click(function(){
+			sonidos.on = $(this)[0].checked
 		});
 	}
 
@@ -125,7 +139,7 @@ var interfazTriqui = new function (){
 		}
 	};
 
-	function showMensaje (text) {
+	function showMensaje (text, audio) {
 		var consola = $("#consola")
 		consola.text(text);
 		setTimeout(function(){
@@ -134,11 +148,28 @@ var interfazTriqui = new function (){
 		setTimeout(function(){
 			consola.removeClass('puffOut');
 		},500);
+
+		if(sonidos.on == true)
+			sonar(audio);
+	};
+
+	function sonar(name){
+		var sonido = new Audio();
+		var ruta = "assets/"+name+".mp3";
+		sonido.src = ruta;
+		sonido.play();
+
+		setTimeout(function(){
+			sonido.pause();
+			
+		},3000);
+
 	};
 		
 	function animationClearCeldas(){
-		$(".celda").parent().fadeTo(300, 0.5);
-		$(".celda").each(function(id){
+		var celdas = $(".celda");
+		celdas.parent().fadeTo(300, 0.5);
+		celdas.each(function(id){
 			var celda = $(this);
 			setTimeout(function(){
 				celda.toggleClass("gano");
@@ -146,9 +177,9 @@ var interfazTriqui = new function (){
 			celda.toggleClass("gano");
 		});	
 
-		$(".celda").parent().fadeTo(500,1);
+		celdas.parent().fadeTo(500,1);
 		
 	};		
 	
 	
-}();
+}($);

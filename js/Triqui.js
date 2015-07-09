@@ -1,7 +1,7 @@
 //logica
 "use strict"
 
-var Triqui = {};
+var Triqui = Triqui || {};
 
 Triqui.juego = function () {	
 	this.jugadorActual = 'user';

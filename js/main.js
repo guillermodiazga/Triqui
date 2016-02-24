@@ -7,7 +7,7 @@ var interfazTriqui = new function ($){
 	var tablero;
 	var user;
 	var pc;
-
+	
 	var sonidos = {
 					on : true,
 					empate : "Punchline Drum",
@@ -21,14 +21,14 @@ var interfazTriqui = new function ($){
 
 	$('#tablero').addClass('magictime spaceInRight');
 
-	function nuevoJuego (){
+	function nuevoJuego (modo){
 		triqui = new Triqui.juego();
 		tablero = new Triqui.tablero();
 		user = new Triqui.jugador("x");
 		pc = new Triqui.computador("o");
 		MiniMax.JUGADOR = {HUMANO: user.name, CPU: pc.name};
 		triqui.jugadorActual = user.name;
-		triqui.modo = $('input[name="modo"]:checked').attr("id");
+		triqui.modo = modo || "facil";
 		showMensaje("Nuevo juego en modo: "+triqui.modo, sonidos.nuevo);
 	};
 
@@ -41,9 +41,16 @@ var interfazTriqui = new function ($){
 	};
 	
 	function juegaPersona(id){
-		tablero.campos = user.marcar(tablero.campos, id, user.name);
-		pintarJugada(id, user.name, "user");
-		triqui.jugadorActual = pc.name;
+		var jugador =  user.name;
+		if(triqui.jugadorActual != user.name && triqui.modo == "multiplayer"){
+			jugador = pc.name;
+		}
+		tablero.campos = user.marcar(tablero.campos, id, jugador);
+		pintarJugada(id, jugador, "user");
+
+		triqui.jugadorActual = (triqui.jugadorActual == user.name)? pc.name : user.name;
+
+		showMensaje("Juega '"+ triqui.jugadorActual.toUpperCase() +"' en modo "+triqui.modo, sonidos.jugando );
 	};
 
 	function juegoEnModoMedio () {
@@ -78,7 +85,7 @@ var interfazTriqui = new function ($){
 			showMensaje("Gano: "+pc.name, sonidos.perdio);
 			triqui.estadoJuego = "Terminado";
 		}else{
-			showMensaje("Jugando...", sonidos.jugando);
+			showMensaje("Jugando "+ triqui.jugadorActual +" en modo "+triqui.modo, sonidos.jugando );
 		}
 	};
 
@@ -94,8 +101,11 @@ var interfazTriqui = new function ($){
 
 			if(triqui.estadoJuego == "Jugando"){
 				juegaPersona(this.id);
+				
+
 				if(!tablero.validarGanador(tablero.campos, user.name) && tablero.hayCeldasVacias(tablero.campos)){
-					juegaPc();
+					if(triqui.modo != "multiplayer")
+							juegaPc();
 				}else{//fin Juego
 					var rutaGanadora = tablero.validarGanador(tablero.campos, user.name);
 					if(rutaGanadora){
@@ -122,6 +132,19 @@ var interfazTriqui = new function ($){
 	};
 
 	function addEventosBotones () {
+
+		$(".modo").click(function(){
+			nuevoJuego($(this).attr("data-value"));
+			limpiarTablero();
+			animationClearCeldas();
+		});
+
+		$(".control").click(function(){
+			nuevoJuego(triqui.modo);
+			limpiarTablero();
+			animationClearCeldas();
+		});
+
 		$("input[name='modo'], button").click(function(){
 			nuevoJuego();
 			limpiarTablero();
@@ -183,3 +206,16 @@ var interfazTriqui = new function ($){
 	
 	
 }($);
+
+
+
+ $('#cssmenu').prepend('<div id="menu-button">Menu</div>');
+    $('#cssmenu #menu-button').on('click', function(){
+
+      var menu = $(this).next('ul');
+      if (menu.css('display')=='none') {
+        menu.slideDown();
+      } else {
+        menu.slideUp();
+      }
+    });

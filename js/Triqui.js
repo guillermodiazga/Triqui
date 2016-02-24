@@ -6,6 +6,7 @@ var Triqui = Triqui || {};
 Triqui.juego = function () {	
 	this.jugadorActual = 'user';
 	this.estadoJuego = 'Jugando';
+	this.modo = "facil";
 }
 
 Triqui.jugador = function (name) {

@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.webapp",
       "src": "",
       "projectGuid": "a9ecc309-ef5a-46ce-b72d-36c7d3654db1",
-      "lastModifiedDate": 1464321707027,
+      "lastModifiedDate": 1464354158988,
       "creationDate": 1464317645375
     },
     "sourceDirectory": "",
@@ -47,7 +47,8 @@
           "android-targetSdkVersion": "15",
           "android-installLocation": "auto",
           "android-signed": true,
-          "Fullscreen": true
+          "Fullscreen": true,
+          "Orientation": "default"
         },
         "isActive_": true,
         "appName_": "Triqui Imposible!",
@@ -58,7 +59,8 @@
             "*"
           ],
           "intents": [],
-          "navigation": []
+          "navigation": [],
+          "properties": {}
         },
         "icons_": [
           {
@@ -91,10 +93,10 @@
         "excludedLibraries_": "",
         "certificateId_": "cNAkBpWdPEWfSMYH0WICsA2",
         "appVersion_": "0.0.2",
-        "appVersionCode_": "1",
-        "crosswalkVersion_": "16",
+        "appVersionCode_": "15",
+        "crosswalkVersion_": "15",
         "cordovaCLIVersion_": "5.4.1",
-        "appDescription_": "",
+        "appDescription_": "El clásico juego de triqui con un nivel al que es imposible ganarle, puedes jugar en 3 niveles de dificultad o multiplayer.",
         "appAuthor_": "dg4apps.com"
       },
       "iOS": {
@@ -201,7 +203,7 @@
         "name_": "Chrome",
         "preferences_": {},
         "isActive_": true,
-        "appName_": "triqui",
+        "appName_": "Triqui",
         "appID_": "not.yet.specified",
         "appAccess_": {
           "mode": "whitelist",
@@ -216,7 +218,8 @@
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "certificateId_": "",
-        "appVersion_": "0.0.1"
+        "appVersion_": "0.0.2",
+        "appDescription_": "El clásico juego de triqui con un nivel al que es imposible ganarle, puedes jugar en 3 niveles de dificultad o multiplayer."
       },
       "Facebook": {
         "platform_": "facebook",

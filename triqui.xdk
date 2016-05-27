@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.webapp",
       "src": "",
       "projectGuid": "a9ecc309-ef5a-46ce-b72d-36c7d3654db1",
-      "lastModifiedDate": 1464319321318,
+      "lastModifiedDate": 1464321707027,
       "creationDate": 1464317645375
     },
     "sourceDirectory": "",
@@ -44,7 +44,7 @@
         "name_": "Android",
         "preferences_": {
           "android-minSdkVersion": "15",
-          "android-targetSdkVersion": "23",
+          "android-targetSdkVersion": "15",
           "android-installLocation": "auto",
           "android-signed": true,
           "Fullscreen": true
@@ -90,7 +90,7 @@
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "certificateId_": "cNAkBpWdPEWfSMYH0WICsA2",
-        "appVersion_": "0.0.1",
+        "appVersion_": "0.0.2",
         "appVersionCode_": "1",
         "crosswalkVersion_": "16",
         "cordovaCLIVersion_": "5.4.1",
